@@ -14,6 +14,7 @@ public class Room {
         this.roomRates = roomRates;
     }
 
+
     public int getBed() {
         return bed;
     }

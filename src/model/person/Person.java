@@ -1,22 +1,23 @@
 package model.person;
 
 public class Person {
-    private String name ;
+    private String name;
     private int age;
-    private int passPort;
+    private String passport;
+    private int room;
+    private int numberRent;
 
-    private String email;
-    private int number;
+    public Person()
+    {
 
-    public Person() {
     }
 
-    public Person(String name, int age, int passPort, String email, int number) {
+    public Person(String name, int age, String passport, int room, int numberRent) {
         this.name = name;
         this.age = age;
-        this.passPort = passPort;
-        this.email = email;
-        this.number = number;
+        this.passport = passport;
+        this.room = room;
+        this.numberRent = numberRent;
     }
 
     public String getName() {
@@ -35,39 +36,39 @@ public class Person {
         this.age = age;
     }
 
-    public int getPassPort() {
-        return passPort;
+    public String getPassport() {
+        return passport;
     }
 
-    public void setPassPort(int passPort) {
-        this.passPort = passPort;
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 
-    public String getEmail() {
-        return email;
+    public int getRoom() {
+        return room;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRoom(int room) {
+        this.room = room;
     }
 
-    public int getNumber() {
-        return number;
+    public int getNumberRent() {
+        return numberRent;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setNumberRent(int numberRent) {
+        this.numberRent = numberRent;
     }
-
 
     @Override
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", passPort=" + passPort +
-                ", email='" + email + '\'' +
-                ", number=" + number +
+                ", passport='" + passport + '\'' +
+                ", room=" + room +
+                ", numberRent=" + numberRent +
                 '}';
     }
+
 }
