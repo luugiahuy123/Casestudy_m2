@@ -4,15 +4,13 @@ public class Person {
     private String name;
     private int age;
     private String passport;
-    private int room;
+    private String room;
     private int numberRent;
 
-    public Person()
-    {
-
+    public Person() {
     }
 
-    public Person(String name, int age, String passport, int room, int numberRent) {
+    public Person(String name, int age, String passport, String room, int numberRent) {
         this.name = name;
         this.age = age;
         this.passport = passport;
@@ -44,11 +42,11 @@ public class Person {
         this.passport = passport;
     }
 
-    public int getRoom() {
+    public String getRoom() {
         return room;
     }
 
-    public void setRoom(int room) {
+    public void setRoom(String room) {
         this.room = room;
     }
 
