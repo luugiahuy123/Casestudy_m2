@@ -1,50 +1,54 @@
-package model.room;
+package model;
 
-public class Room {
-    private int bed;
-    private String roomId;
-    private int roomRates;
+public class Room implements HotelEntity {
+    private String roomType;
+    private int roomId;
+    private int price;
 
     public Room() {
     }
 
-    public Room(int bed, String roomId, int roomRates) {
-        this.bed = bed;
+    public Room(String roomType, int roomId, int price) {
+        this.roomType = roomType;
         this.roomId = roomId;
-        this.roomRates = roomRates;
+        this.price = price;
     }
 
-
-    public int getBed() {
-        return bed;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setBed(int bed) {
-        this.bed = bed;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
-    public String getRoomId() {
+    public int getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(String roomId) {
+    public void setRoomId(int roomId) {
         this.roomId = roomId;
     }
 
-    public int getRoomRates() {
-        return roomRates;
+    public int getPrice() {
+        return price;
     }
 
-    public void setRoomRates(int roomRates) {
-        this.roomRates = roomRates;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "Room{" +
-                "bed=" + bed +
-                ", roomId='" + roomId + '\'' +
-                ", roomRates=" + roomRates +
+                "roomType='" + roomType + '\'' +
+                ", roomId=" + roomId +
+                ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public int getID() {
+        return roomId;
     }
 }
