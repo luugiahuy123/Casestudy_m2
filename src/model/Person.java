@@ -1,21 +1,19 @@
-package model.person;
+package model;
 
-public class Person {
+public class Person implements HotelEntity {
     private String name;
     private int age;
-    private String passport;
-    private String room;
-    private int numberRent;
+    private int passport;
+    private String kindOfRoom;
 
     public Person() {
     }
 
-    public Person(String name, int age, String passport, String room, int numberRent) {
+    public Person(String name, int age, int passport, String kindOfRoom) {
         this.name = name;
         this.age = age;
         this.passport = passport;
-        this.room = room;
-        this.numberRent = numberRent;
+        this.kindOfRoom = kindOfRoom;
     }
 
     public String getName() {
@@ -34,28 +32,20 @@ public class Person {
         this.age = age;
     }
 
-    public String getPassport() {
+    public int getPassport() {
         return passport;
     }
 
-    public void setPassport(String passport) {
+    public void setPassport(int passport) {
         this.passport = passport;
     }
 
-    public String getRoom() {
-        return room;
+    public String getKindOfRoom() {
+        return kindOfRoom;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public int getNumberRent() {
-        return numberRent;
-    }
-
-    public void setNumberRent(int numberRent) {
-        this.numberRent = numberRent;
+    public void setKindOfRoom(String kindOfRoom) {
+        this.kindOfRoom = kindOfRoom;
     }
 
     @Override
@@ -63,10 +53,13 @@ public class Person {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", passport='" + passport + '\'' +
-                ", room=" + room +
-                ", numberRent=" + numberRent +
+                ", passport=" + passport +
+                ", kindOfRoom='" + kindOfRoom + '\'' +
                 '}';
     }
 
+    @Override
+    public int getID() {
+        return passport;
+    }
 }

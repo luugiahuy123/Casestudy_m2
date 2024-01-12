@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReadWrite {
+
     private final String PATH_FILE = "/Users/luuhuy/Desktop/md2/1/Casestudy_m2/src/data/personStorage.csv";
 
     public List<Person> readCSV() {
@@ -30,13 +31,13 @@ public class FileReadWrite {
 
             }
         } catch (IOException e) {
-            System.out.println("Đường dẫn của tệp không hợp lệ");
+            System.out.println("Path of file is invalid");
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    System.out.println("Lỗi");
+                    System.out.println("Error closing bufferReader");
                 }
             }
         }
@@ -50,13 +51,13 @@ public class FileReadWrite {
             bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(list);
         } catch (IOException e) {
-            System.out.println("Đường dẫn của tệp không hợp lệ");
+            System.out.println("Path of file is invalid");
         } finally {
             if(bufferedWriter != null) {
                 try {
                     bufferedWriter.close();
                 } catch (IOException e) {
-                    System.out.println("Lỗi");
+                    System.out.println("Error closing bufferWriter");
                 }
             }
         }
@@ -68,5 +69,4 @@ public class FileReadWrite {
         }
         return content;
     }
-
 }

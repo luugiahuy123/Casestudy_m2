@@ -1,84 +1,169 @@
 package controller;
 
-import model.FileHandler;
-import model.HotelEntity;
 import model.Person;
-
+import model.room.Room;
+import model.room.RoomLux;
+import model.room.RoomSup;
+import utils.FileReadWrite;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import model.room.Room.*;
 
 public class PersonManager {
-//    implements FileHandler<HotelEntity>
-    private List<HotelEntity> persons;
+    List<Person> personList = new ArrayList<>();
+    private final FileReadWrite fileReadWrite = new FileReadWrite();
+    private final Scanner scanner = new Scanner(System.in);
 
-    public PersonManager() {
-        persons = new java.util.ArrayList<>();
-    }
+    public void addPerson() {
 
-    public void addOrUpdatePerson(Scanner scanner) {
-        System.out.println("Nhập thông tin người (Passport, Name, Age, Kind of Room): ");
-        int passport = scanner.nextInt();
-        String name = scanner.next();
-        int age = scanner.nextInt();
-        String kindOfRoom = scanner.next();
-        Person newPerson = new Person(name, age, passport, kindOfRoom);
-        Person existingPerson = findPersonById(passport);
-
-        if (existingPerson != null) {
-            System.out.println("Người đã tồn tại. Bạn có muốn cập nhật thông tin không? (Y/N)");
-            String choice = scanner.next().toUpperCase();
-            if (choice.equals("Y")) {
-                existingPerson.setName(newPerson.getName());
-                existingPerson.setAge(newPerson.getAge());
-                existingPerson.setKindOfRoom(newPerson.getKindOfRoom());
-                System.out.println("Thông tin người đã được cập nhật.");
+        System.out.print("Nhap ten kh: ");
+        String name = scanner.nextLine();
+        System.out.print("nhap tuoi: ");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.print("nhap passport: ");
+        int pass = Integer.parseInt(scanner.nextLine());
+        int choice;
+        String typeRoom = null;
+        int count;
+        do {
+            count = 0;
+            System.out.println("1. lux room");
+            System.out.println("2. sup room");
+            System.out.println("3. stand room");
+            System.out.print("nhap loai phong");
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    typeRoom = "Room lux";
+                    break;
+                case 2:
+                    typeRoom = "Room sup";
+                    break;
+                case 3:
+                    typeRoom = "Room stand";
+                    break;
+                default:
+                    count++;
+                    System.out.println("nhap sai roi, nhap lai");
             }
-        } else {
-            persons.add(newPerson);
-            System.out.println("Người đã được thêm mới.");
-        }
+        } while (count != 0);
+        Person person = new Person(name, age, pass, typeRoom);
+        personList = fileReadWrite.readCSV();
+        personList.add(person);
+        String content = fileReadWrite.convertListToStringCSV(personList);
+        fileReadWrite.writeListToCSV(content);
+        System.out.println("thêm mới thành công");
     }
 
-    public void deletePerson(Scanner scanner) {
-        System.out.print("Nhập Passport người cần xoá: ");
-        int passportToDelete = scanner.nextInt();
-        Person person = findPersonById(passportToDelete);
-        if (person != null) {
-            persons.remove(person);
-            System.out.println("Người đã được xoá.");
-        } else {
-            System.out.println("Không tìm thấy người với Passport đã nhập.");
+    public void deletePerson() {
+        int count;
+        int id;
+
+        do {
+            count = 0;
+            System.out.println("nhap id can xoa");
+            id = Integer.parseInt(scanner.nextLine());
+            Person person = findPersonById(id);
+            if (person == null) {
+                System.out.println("id khong hop le");
+                count++;
+            } else {
+
+                removePerson(id);
+            }
+
+        } while (count != 0);
+    }
+
+    private void removePerson(int id) {
+        List<Person> personList1 = fileReadWrite.readCSV();
+        for (int i = 0; i < personList1.size(); i++) {
+            if (personList1.get(i).getID() == id) {
+                personList1.remove(i);
+                break;
+            }
         }
+        String content = fileReadWrite.convertListToStringCSV(personList1);
+        fileReadWrite.writeListToCSV(content);
     }
 
     public void displayPersons() {
-        System.out.println("Danh Sách Người:");
-        for (HotelEntity entity : persons) {
-            if (entity instanceof Person) {
-                System.out.println(entity);
-            }
+        System.out.println("danh sach khach hang:");
+        personList = fileReadWrite.readCSV();
+        for (Person person : personList) {
+            System.out.println(person);
         }
     }
 
-//    @Override
-//    public List<HotelEntity> readFromFile(String fileName) {
-//        // Đọc dữ liệu từ file
-//        // ...
-//
-//    }
-//
-//    @Override
-//    public void writeToFile(List<HotelEntity> entities, String fileName) {
-//        // Ghi dữ liệu vào file
-//        // ...
-//    }
 
     private Person findPersonById(int passport) {
-        for (HotelEntity entity : persons) {
-            if (entity.getID() == passport && entity instanceof Person) {
-                return (Person) entity;
+        List<Person> personList1 = fileReadWrite.readCSV();
+        for (Person person : personList1) {
+            if (person.getID() == passport) {
+                return person;
             }
         }
         return null;
+    }
+
+    public void edit() {
+        int count;
+        int id;
+        do {
+            count = 0;
+            System.out.println("nhap id can sua ");
+            id = Integer.parseInt(scanner.nextLine());
+            Person person = findPersonById(id);
+            if (person == null) {
+                System.out.println("id khong hop le ");
+                count++;
+            } else {
+                System.out.print("Nhap ten kh moi ");
+                String name = scanner.nextLine();
+                System.out.print("nhap tuoi moi: ");
+                int age = Integer.parseInt(scanner.nextLine());
+                int choice;
+                String typeRoom = null;
+                int count1;
+                do {
+                    count1 = 0;
+                    System.out.println("1. lux romm");
+                    System.out.println("2. sup romm");
+                    System.out.println("3. stand romm");
+                    System.out.print("nhap loai phong");
+                    choice = Integer.parseInt(scanner.nextLine());
+                    switch (choice) {
+                        case 1:
+                            typeRoom = "Room lux";
+                            break;
+                        case 2:
+                            typeRoom = "Room sup";
+                            break;
+                        case 3:
+                            typeRoom = "Room stand";
+                            break;
+                        default:
+                            count1++;
+                            System.out.println("nhap sai roi, nhap lai");
+                    }
+                } while (count1 != 0);
+                editPerson(name, age, typeRoom, id);
+            }
+
+        } while (count != 0);
+    }
+
+    private void editPerson(String name, int age, String typeRoom, int id) {
+        List<Person> personList1 = fileReadWrite.readCSV();
+        Person newPerson = new Person(name, age, id, typeRoom);
+        for (int i = 0; i < personList1.size(); i++) {
+            if (personList1.get(i).getID() == id) {
+                personList1.set(i, newPerson);
+                break;
+            }
+        }
+        String content = fileReadWrite.convertListToStringCSV(personList1);
+        fileReadWrite.writeListToCSV(content);
     }
 }

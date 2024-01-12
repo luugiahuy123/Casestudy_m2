@@ -1,2 +1,5 @@
-package model;public interface HotelEntity {
+package model;
+
+public interface HotelEntity {
+    int getID();
 }

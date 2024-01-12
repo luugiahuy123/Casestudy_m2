@@ -1,11 +1,13 @@
-package model;
+package model.room;
+
+import model.HotelEntity;
 
 public class Room implements HotelEntity {
     private String roomType;
     private int roomId;
     private int price;
 
-    public Room() {
+    public Room(int id, String type, double price) {
     }
 
     public Room(String roomType, int roomId, int price) {
